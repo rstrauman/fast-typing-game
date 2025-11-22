@@ -102,3 +102,13 @@ h1 {
     transform: scale(1.1);
     line-height: 26px;
 }
+
+.letter-box.correct {
+    background-color: #39a027;
+    color: #fff;
+}
+
+.letter-box.incorrect {
+    background-color: #e70f0f;
+    color: #fff;
+}
