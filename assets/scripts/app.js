@@ -4,6 +4,8 @@ let words = ['dinosaur', 'love', 'pineapple', 'calendar', 'robot', 'building', '
 let randomWordArray = [];
 let nextWordCount = "";
 let letterIndex = 0;
+let incorrectLetterCount = 0;
+let tooManyIncorrect = false;
 
 // let userInput; // eventually will 
 let nextWord;
@@ -50,7 +52,7 @@ function gameStart(){
         wordContainer.appendChild(emptyLetterBox);
     }
 
-    letterBoxes = document.querySelectorAll('.letter-box');
+    letterBoxes = wordContainer.querySelectorAll('.letter-box');
     letterIndex = 0;
 
     let resetBtn = document.createElement('div');
@@ -63,22 +65,29 @@ function gameStart(){
 }
 
 function createNextWord(){
-    for(let i = 0; i < randomWordArray.length; i++){
-        nextWord = document.createElement('div');
-        nextWord.innerHTML = randomWordArray[i];
-        gameContainer.appendChild(nextWord);
+    userInput.value = "";
+    wordContainer.innerHTML = "";
+    randomWordArray.shift();
+
+    nextWordCount = randomWordArray[0];
+    nextWord.innerHTML = randomWordArray[0].toUpperCase();
+
+    for(let i = 0; i < nextWordCount.length; i++){
+        let emptyLetterBox = document.createElement('div');
+        emptyLetterBox.classList = ('letter-box');
+        wordContainer.appendChild(emptyLetterBox);
     }
+
+    letterBoxes = wordContainer.querySelectorAll('.letter-box');
+    letterIndex = 0;
 }
 
-// createNextWord();
-
 function matchWord() {
-    // for(let i = 0; i < nextWord.length; i++){
-        // if(userInput.value.toLowerCase() === keyName) console.log('hi');
-    // }
+
 }
 
 function typedLetter(inputLetter){
+    if(letterIndex >= nextWordCount.length) return;
     inputLetter = inputLetter.toLowerCase();
 
         if(inputLetter === nextWordCount[letterIndex].toLowerCase()) {
@@ -86,15 +95,19 @@ function typedLetter(inputLetter){
             letterBoxes[letterIndex].classList.remove('incorrect');
             letterBoxes[letterIndex].classList.add('correct');
             letterIndex++;
+            if(letterIndex === nextWordCount.length){
+                setTimeout(createNextWord, 100);
+        }
         } else {
             letterBoxes[letterIndex].innerHTML = inputLetter.toUpperCase();
             letterBoxes[letterIndex].classList.add('incorrect');
+            incorrectLetterCount++;
         }
 }
 
 startBtn.addEventListener('click', gameStart);
 userInput.addEventListener('keydown', (event) => {
-    const letter = event.key;
-    if(letter.length > 1) return;
-    typedLetter(letter);
-});
+        const letter = event.key;
+        if(!/^[a-z]$/i.test(letter)) return;
+        typedLetter(letter);
+    });
