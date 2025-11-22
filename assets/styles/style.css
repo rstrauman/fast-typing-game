@@ -1,5 +1,9 @@
 @import "./container.css";
 
+/************************************/
+/*           Containers             */
+/************************************/
+
 .game-viewport {
     display: flex;
     height: 100svh;
@@ -18,6 +22,10 @@
     padding: 50px 0;
     justify-content: space-between;
 }
+
+/************************************/
+/*           Game Start             */
+/************************************/
 
 h1 {
     text-align: center;
@@ -62,6 +70,26 @@ h1 {
 
 .start-btn:hover {
     background-color: #97b8f1;
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+/************************************/
+/*            In Game               */
+/************************************/
+
+.restart-btn {
+    background-color: #ffa826;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: 500;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.25); 
+    transition: all 0.25s ease-in-out;
+}
+
+.restart-btn:hover {
+    background-color: #e89922;
     cursor: pointer;
     transform: scale(1.1);
 }
