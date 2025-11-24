@@ -7,7 +7,6 @@ let letterIndex = 0;
 let incorrectLetterCount = 0;
 let tooManyIncorrect = false;
 
-// let userInput; // eventually will 
 let nextWord;
 let wordInputSpace;
 let letterBoxes = [];
@@ -60,8 +59,24 @@ function gameStart(){
     resetBtn.classList.add('restart-btn');
     gameContainer.appendChild(resetBtn);
 
-    userInput.focus();
+    resetBtn.addEventListener('click', resetGame);
 
+    userInput.focus();
+}
+
+function resetGame(){
+    if(nextWord) nextWord.remove();
+
+    wordContainer.innerHTML = "";
+
+    const prevResetBtn = document.querySelectorAll('.restart-btn');
+    prevResetBtn.forEach(btn => btn.remove());
+
+    letterIndex = 0; 
+    incorrectLetterCount = 0; 
+    randomWordArray = [];
+
+    gameStart();
 }
 
 function createNextWord(){
@@ -82,32 +97,78 @@ function createNextWord(){
     letterIndex = 0;
 }
 
-function matchWord() {
-
-}
-
 function typedLetter(inputLetter){
     if(letterIndex >= nextWordCount.length) return;
     inputLetter = inputLetter.toLowerCase();
 
-        if(inputLetter === nextWordCount[letterIndex].toLowerCase()) {
+    if(inputLetter === nextWordCount[letterIndex].toLowerCase()) {
+        // User inputs correct letter BUT letter is already incorrect (has to backspace first)
+        if(letterBoxes[letterIndex].classList.contains('incorrect')) return;
+        // Letter is correct
+        else {
             letterBoxes[letterIndex].innerHTML = inputLetter.toUpperCase();
             letterBoxes[letterIndex].classList.remove('incorrect');
             letterBoxes[letterIndex].classList.add('correct');
             letterIndex++;
+            }
+            // Word is correct
             if(letterIndex === nextWordCount.length){
                 setTimeout(createNextWord, 100);
         }
+        // Letter is incorrect
         } else {
-            letterBoxes[letterIndex].innerHTML = inputLetter.toUpperCase();
-            letterBoxes[letterIndex].classList.add('incorrect');
-            incorrectLetterCount++;
+            // Letter is incorrect 5 or more times
+            if(incorrectLetterCount >= 5) {
+                for(let box of letterBoxes){
+                    box.classList.add('anim');
+                }
+                setTimeout(() => {
+                    for(let box of letterBoxes){
+                        box.classList.remove('anim');
+                    }
+                }, 500);
+                return;
+                // Letter is incorrect 
+            } else {
+                letterBoxes[letterIndex].innerHTML = inputLetter.toUpperCase();
+                letterBoxes[letterIndex].classList.add('incorrect');
+                letterBoxes[letterIndex].classList.add('anim');
+                incorrectLetterCount++;
+                setTimeout(() => {
+                    letterBoxes[letterIndex].classList.remove('anim');
+                }, 500)
         }
+    }
+}
+
+function backSpace(){
+    if(letterIndex === 0 && !letterBoxes[0].classList.contains('incorrect')) return;
+    
+    // Backspace an incorrect letter
+    if(letterBoxes[letterIndex].classList.contains('incorrect')){
+        letterBoxes[letterIndex].innerHTML = "";
+        letterBoxes[letterIndex].classList.remove('incorrect');
+        incorrectLetterCount = 0;
+        return;
+    }
+    // Backspace a correct letter
+    letterIndex--;
+    letterBoxes[letterIndex].innerHTML = "";
+    letterBoxes[letterIndex].classList.remove('correct', 'incorrect');
 }
 
 startBtn.addEventListener('click', gameStart);
 userInput.addEventListener('keydown', (event) => {
         const letter = event.key;
+        if(letter === 'Backspace') {
+            backSpace();
+            return;
+        }
         if(!/^[a-z]$/i.test(letter)) return;
         typedLetter(letter);
     });
+
+// Removes ability to click off screen and be unable to type
+document.addEventListener('click', () => {
+    userInput.focus();
+});

@@ -112,3 +112,19 @@ h1 {
     background-color: #e70f0f;
     color: #fff;
 }
+
+.user-input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.letter-box.anim {
+    animation: 0.5s incorrect ease-in-out;
+}
+
+@keyframes incorrect {
+    0%, 100% { translate: 0 0; }
+    33% { translate: 40px 0}
+    66% { translate: -40px 0 }
+}
