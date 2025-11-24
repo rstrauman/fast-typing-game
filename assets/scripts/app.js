@@ -7,7 +7,6 @@ let letterIndex = 0;
 let incorrectLetterCount = 0;
 let tooManyIncorrect = false;
 
-// let userInput; // eventually will 
 let nextWord;
 let wordInputSpace;
 let letterBoxes = [];
@@ -60,8 +59,24 @@ function gameStart(){
     resetBtn.classList.add('restart-btn');
     gameContainer.appendChild(resetBtn);
 
-    userInput.focus();
+    resetBtn.addEventListener('click', resetGame);
 
+    userInput.focus();
+}
+
+function resetGame(){
+    if(nextWord) nextWord.remove();
+
+    wordContainer.innerHTML = "";
+
+    const prevResetBtn = document.querySelectorAll('.restart-btn');
+    prevResetBtn.forEach(btn => btn.remove());
+
+    letterIndex = 0; 
+    incorrectLetterCount = 0; 
+    randomWordArray = [];
+
+    gameStart();
 }
 
 function createNextWord(){
@@ -80,10 +95,6 @@ function createNextWord(){
 
     letterBoxes = wordContainer.querySelectorAll('.letter-box');
     letterIndex = 0;
-}
-
-function matchWord() {
-
 }
 
 function typedLetter(inputLetter){
