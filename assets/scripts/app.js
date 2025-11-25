@@ -16,6 +16,9 @@ let wordContainer = document.querySelector('.current-word-container');
 let startBtn = document.querySelector('.start-btn');
 let userInput = document.querySelector('.user-input');
 
+let count = 100;
+let timerCount;
+let countDisplay = document.querySelector('.countdown')
 
 function sortWords(shuffleWords) {
     let currentIndex = shuffleWords.length, temporaryValue, randomIndex;
@@ -33,7 +36,6 @@ function sortWords(shuffleWords) {
 
 function gameStart(){
     randomWordArray = sortWords(words);
-
     wordContainer.innerHTML = "";
     startBtn.remove();
 
@@ -59,7 +61,12 @@ function gameStart(){
     resetBtn.classList.add('restart-btn');
     gameContainer.appendChild(resetBtn);
 
-    resetBtn.addEventListener('click', resetGame);
+    resetBtn.addEventListener('click', () => {
+        resetGame();
+        clearInterval(timerCount)
+        count = 100;
+        countDown();
+    });
 
     userInput.focus();
 }
@@ -157,7 +164,13 @@ function backSpace(){
     letterBoxes[letterIndex].classList.remove('correct', 'incorrect');
 }
 
-startBtn.addEventListener('click', gameStart);
+startBtn.addEventListener('click', () => {
+    gameStart();
+    countDown();
+    document.querySelector('.countdown-container').classList.remove("hidden");
+
+});
+
 userInput.addEventListener('keydown', (event) => {
         const letter = event.key;
         if(letter === 'Backspace') {
@@ -166,7 +179,18 @@ userInput.addEventListener('keydown', (event) => {
         }
         if(!/^[a-z]$/i.test(letter)) return;
         typedLetter(letter);
-    });
+});
+function countDown() {
+    timerCount = setInterval(() => {
+        count--;
+        countDisplay.innerHTML = count;
+        console.log(count);
+        if (count  == 0) {
+            clearInterval(timerCount);
+        }
+    }, 1000);
+
+}
 
 // Removes ability to click off screen and be unable to type
 document.addEventListener('click', () => {
