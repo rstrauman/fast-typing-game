@@ -18,6 +18,9 @@ let wordContainer = document.querySelector('.current-word-container');
 let startBtn = document.querySelector('.start-btn');
 let userInput = document.querySelector('.user-input');
 
+let count = 100;
+let timerCount;
+let countDisplay = document.querySelector('.countdown')
 
 function sortWords(shuffleWords) {
     let currentIndex = shuffleWords.length, temporaryValue, randomIndex;
@@ -40,9 +43,13 @@ function gameStart(){
     words = ['dinosaur', 'love', 'pineapple', 'calendar', 'robot', 'building', 'population', 'weather', 'bottle', 'history', 'dream', 'character', 'money', 'absolute', 'discipline', 'machine', 'accurate', 'connection', 'rainbow', 'bicycle', 'eclipse', 'calculator', 'trouble', 'watermelon', 'developer', 'philosophy', 'database', 'periodic', 'capitalism', 'abominable', 'component', 'future', 'pasta', 'microwave', 'jungle', 'wallet', 'canada', 'coffee', 'beauty', 'agency', 'chocolate', 'eleven', 'technology', 'alphabet', 'knowledge', 'magician', 'professor', 'triangle', 'earthquake', 'baseball', 'beyond', 'evolution', 'banana', 'perfumer', 'computer', 'management', 'discovery', 'ambition', 'music', 'eagle', 'crown', 'chess', 'laptop', 'bedroom', 'delivery', 'enemy', 'button', 'superman', 'library', 'unboxing', 'bookstore', 'language', 'homework', 'fantastic', 'economy', 'interview', 'awesome', 'challenge', 'science', 'mystery', 'famous', 'league', 'memory', 'leather', 'planet', 'software', 'update', 'yellow', 'keyboard', 'window'];
 
     randomWordArray = sortWords(words);
-
     wordContainer.innerHTML = "";
     startBtn.remove();
+
+    count = 100;
+    countDown();
+
+    document.querySelector('.countdown-container').classList.remove("hidden");
 
     nextWord = document.createElement('div');
     nextWord.innerHTML = randomWordArray[0].toUpperCase();
@@ -66,13 +73,18 @@ function gameStart(){
     resetBtn.classList.add('restart-btn');
     gameContainer.appendChild(resetBtn);
 
-    resetBtn.addEventListener('click', resetGame);
+    resetBtn.addEventListener('click', () => {
+        resetGame();
+    });
 
     userInput.focus();
 }
 
 function resetGame(){
     if(nextWord) nextWord.remove();
+        clearInterval(timerCount)
+        count = 100;
+        countDown();
 
     wordContainer.innerHTML = "";
 
@@ -82,6 +94,9 @@ function resetGame(){
     letterIndex = 0; 
     incorrectLetterCount = 0; 
     randomWordArray = [];
+
+    clearInterval(timerCount)
+    count = 100;
 
     gameStart();
 }
@@ -172,6 +187,7 @@ function backSpace(){
 }
 
 startBtn.addEventListener('click', gameStart);
+
 userInput.addEventListener('keydown', (event) => {
         const letter = event.key;
         if(letter === 'Backspace') {
@@ -180,7 +196,19 @@ userInput.addEventListener('keydown', (event) => {
         }
         if(!/^[a-z]$/i.test(letter)) return;
         typedLetter(letter);
-    });
+});
+function countDown() {
+    timerCount = setInterval(() => {
+        count--;
+        countDisplay.innerHTML = count;
+        console.log(count);
+        if (count == 0) {
+            alert("Game Over!")
+            clearInterval(timerCount);
+        }
+    }, 1000);
+
+}
 
 // Removes ability to click off screen and be unable to type
 document.addEventListener('click', () => {

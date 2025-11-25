@@ -123,6 +123,15 @@ h1 {
     animation: 0.5s incorrect ease-in-out;
 }
 
+.countdown {
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.hidden {
+    display: none;
+}
+
 @keyframes incorrect {
     0%, 100% { translate: 0 0; }
     33% { translate: 40px 0}
