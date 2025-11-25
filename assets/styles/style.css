@@ -1,14 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
 body {
-    margin: 0;
     font-family: 'Roboto', sans-serif;
-    background: linear-gradient(135deg, #455c59, #416764);
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    overflow: hidden;
 }
 
 #bg-video {
@@ -32,7 +29,9 @@ body {
 }
 
 .game-container {
-    background: linear-gradient(145deg, #ffffff, #e0f7fa);
+    background: rgba(255, 255, 255, 0);
+        backdrop-filter: blur(10px);
+
     padding: 50px 70px;
     border-radius: 20px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.15);
@@ -51,9 +50,8 @@ body {
 }
 
 h1 {
-    font-size: 3.5rem;
+    font-size: 5.5rem;
     margin-bottom: 25px;
-    color: #ff6f00;
     text-align: center;
     text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
     animation: pulse 1s infinite alternate;
@@ -67,7 +65,7 @@ h1 {
     }
     50% {
         transform: scale(1.2);
-        color: #527f8a;
+        color: #4fc7e6;
         text-shadow: 4px 4px 10px rgba(0,0,0,0.3);
     }
     100% {
@@ -126,7 +124,6 @@ h1 {
 
 .letter-box.active {
     font-size: 3.5rem;
-    color: #ff5722;
     transform: scale(1.2);
     background-color: #fff3e0;
 }
@@ -156,7 +153,7 @@ h1 {
 
 @media screen and (max-width: 600px) {
     h1 {
-        font-size: 1.5rem;
+        font-size: 3.5rem;
     }
     .letter-box {
         height: 70px;
@@ -164,9 +161,5 @@ h1 {
         min-width: 20px;
         max-width: 55px;
         line-height: 50px;
-    }
-    .start-btn {
-        padding: 12px 30px;
-        font-size: 1.2rem;
     }
 }
