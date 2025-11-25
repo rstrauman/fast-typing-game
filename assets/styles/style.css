@@ -59,7 +59,7 @@ h1 {
 }
 
 .start-btn {
-    background-color: #1b50b3;
+    background-color: #a1c4ff;
     padding: 10px 20px;
     border-radius: 5px;
     color: #fff;
@@ -70,7 +70,7 @@ h1 {
 }
 
 .start-btn:hover {
-    background-color: #abc3eb;
+    background-color: #97b8f1;
     cursor: pointer;
     transform: scale(1.1);
     line-height: 26px;
