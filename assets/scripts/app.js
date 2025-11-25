@@ -74,6 +74,9 @@ function gameStart(){
 
 function resetGame(){
     if(nextWord) nextWord.remove();
+        clearInterval(timerCount)
+        count = 100;
+        countDown();
 
     wordContainer.innerHTML = "";
 
@@ -184,7 +187,8 @@ function countDown() {
         count--;
         countDisplay.innerHTML = count;
         console.log(count);
-        if (count  == 0) {
+        if (count == 0) {
+            alert("Game Over!")
             clearInterval(timerCount);
         }
     }, 1000);
