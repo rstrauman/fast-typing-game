@@ -12,29 +12,10 @@ correctLetterSound.type = 'audio/mp3'
 const IncorrectWordSoundtrack = new Audio('./assets/media/Incorrect_word_soundtrack.wav');
 IncorrectWordSoundtrack.type = 'audio/wav'
 
-
-// query selectors
-const start = document.querySelector('!DOCTYPE html');
-// const jumpBtn = document.querySelector('.jump');
-// const mario = document.querySelector('.mario');
-
-// window.addEventListener('load', function() {
-//     backgroundMusic.play();
-// })
-
-document.addEventListener("DOMContentLoaded", function () {
+startBtn.addEventListener("click", () => {
     backgroundMusic.play();
-
 });
-// start.addEventListener('click', () => {
-//     start.play();
-// })
 
-// jumpBtn.addEventListener('click', () => {
-//     // start.pause();
-//     jump.play();
-//     mario.classList.add('anim');
-//     setTimeOut(() => {
-//         mario.classList.remove('anim')
-//     }, 800)
-// })
+// try making a function that counts down, use something like setInterval. Once it reaches 0 then play the soundtrack
+ 
+// it could be a for loop inside a function that decrements every 1 second
