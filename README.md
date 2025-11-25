@@ -8,10 +8,8 @@
 
 
 ## 🎮 Demo
-Open **index.html** in your browser to play.
 
-
-For best performance, use a local server (e.g., Live Server in VS Code).
+Live link of our game: 
 
 
 ---
