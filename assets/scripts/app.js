@@ -15,17 +15,25 @@ function sortWords(shuffleWords) {
 
   return shuffleWords;
 }
-const oceanAudio = new Audio('./assets/media/ocean-waves.mp3');
-oceanAudio.volume = 0.5;
 
-function playSegment() {
+console.log(sortWords(words));
+const oceanAudio = document.getElementById('ocean-sound');
+
+function play7SecLoop() {
     oceanAudio.currentTime = 0;
-    oceanAudio.play();
-
+    oceanAudio.play().catch(() => {
+        console.log("Autoplay blocked, waiting for user interaction");
+    });
     setTimeout(() => {
         oceanAudio.pause();
-        playSegment(); // restart the segment
+        play7SecLoop();
     }, 7000);
 }
 
-playSegment();
+window.addEventListener('load', () => {
+    play7SecLoop();
+});
+
+document.body.addEventListener('click', () => {
+    oceanAudio.play();
+});
