@@ -9,10 +9,8 @@ let randomWordArray = [];
 let nextWordCount = "";
 let letterIndex = 0;
 let incorrectLetterCount = 0;
-let tooManyIncorrect = false;
 
 let nextWord;
-let wordInputSpace;
 let letterBoxes = [];
 
 let gameContainer = document.querySelector('.game-container');
