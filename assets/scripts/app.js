@@ -15,5 +15,17 @@ function sortWords(shuffleWords) {
 
   return shuffleWords;
 }
+const oceanAudio = new Audio('./assets/media/ocean-waves.mp3');
+oceanAudio.volume = 0.5;
 
-console.log(sortWords(words));
+function playSegment() {
+    oceanAudio.currentTime = 0;
+    oceanAudio.play();
+
+    setTimeout(() => {
+        oceanAudio.pause();
+        playSegment(); // restart the segment
+    }, 7000);
+}
+
+playSegment();
