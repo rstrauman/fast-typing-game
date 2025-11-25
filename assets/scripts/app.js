@@ -5,7 +5,6 @@ let randomWordArray = [];
 let nextWordCount = "";
 let letterIndex = 0;
 let incorrectLetterCount = 0;
-let tooManyIncorrect = false;
 
 let nextWord;
 let wordInputSpace;
@@ -39,6 +38,11 @@ function gameStart(){
     wordContainer.innerHTML = "";
     startBtn.remove();
 
+    count = 100;
+    countDown();
+
+    document.querySelector('.countdown-container').classList.remove("hidden");
+
     nextWord = document.createElement('div');
     nextWord.innerHTML = randomWordArray[0].toUpperCase();
     nextWord.classList.add('next-word');
@@ -63,9 +67,6 @@ function gameStart(){
 
     resetBtn.addEventListener('click', () => {
         resetGame();
-        clearInterval(timerCount)
-        count = 100;
-        countDown();
     });
 
     userInput.focus();
@@ -82,6 +83,9 @@ function resetGame(){
     letterIndex = 0; 
     incorrectLetterCount = 0; 
     randomWordArray = [];
+
+    clearInterval(timerCount)
+    count = 100;
 
     gameStart();
 }
@@ -164,12 +168,7 @@ function backSpace(){
     letterBoxes[letterIndex].classList.remove('correct', 'incorrect');
 }
 
-startBtn.addEventListener('click', () => {
-    gameStart();
-    countDown();
-    document.querySelector('.countdown-container').classList.remove("hidden");
-
-});
+startBtn.addEventListener('click', gameStart);
 
 userInput.addEventListener('keydown', (event) => {
         const letter = event.key;
