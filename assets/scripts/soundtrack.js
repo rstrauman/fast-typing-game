@@ -12,9 +12,13 @@ correctLetterSound.type = 'audio/mp3'
 const IncorrectWordSoundtrack = new Audio('./assets/media/Incorrect_word_soundtrack.wav');
 IncorrectWordSoundtrack.type = 'audio/wav'
 
+const letterErrorSound = new Audio('./assets/media/Error_sound_for_incorrect_letter.mp3');
+letterErrorSound.type = 'audio/mp3';
+
 startBtn.addEventListener("click", () => {
     backgroundMusic.play();
 });
+
 
 // try making a function that counts down, use something like setInterval. Once it reaches 0 then play the soundtrack
  

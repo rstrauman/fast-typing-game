@@ -133,6 +133,7 @@ function typedLetter(inputLetter){
                 letterBoxes[letterIndex].innerHTML = inputLetter.toUpperCase();
                 letterBoxes[letterIndex].classList.add('incorrect');
                 letterBoxes[letterIndex].classList.add('anim');
+                letterErrorSound.play();
                 incorrectLetterCount++;
                 setTimeout(() => {
                     letterBoxes[letterIndex].classList.remove('anim');
