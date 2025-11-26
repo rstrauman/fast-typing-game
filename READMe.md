@@ -24,4 +24,10 @@
 - **You win** — you typed all required words correctly.
 - **You lose** — the timer runs out or you make too many mistakes.
 
-There is **no Pause** and **no Reset** button. The game runs until you win or lose.
+There is **no Pause** button. The game runs until you win or lose.
+
+## Contributors
+- Harpreet Kaur
+- Emmanuel Olannye
+- Khalid Alli-Balogun
+- Riley Strauman
