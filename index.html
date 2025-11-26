@@ -8,14 +8,22 @@
         <meta name="keywords" content="html, css, web, web development, javascript">
         <title>Fast-Typing Game</title>
         <link rel="icon" href="./assets/media/favicon.png?v=2" type="image/x-icon">
-        <link rel="Stylesheet" href="assets/styles/style.css" media="all">
+        <link rel="stylesheet" href="assets/styles/style.css" media="all">
     </head>
 <body>
+    <video id="bg-video" autoplay muted loop playsinline>
+        <source src="./assets/media/river.mp4" type="video/mp4">
+    </video>
+    <audio id="ocean-sound" autoplay loop>
+        <source src="./assets/media/ocean-waves.mp3" type="audio/mpeg">
+    </audio>
+
     <div class="game-viewport">
         <div class="game-container">
             <h1>Type Rush</h1>
             <div class="countdown-container hidden">
                 <p class="countdown">00</p>
+                <div class="hit-counter">Hits: <span id="hit-count">0</span></div>
             </div>
             <div class="current-word-container">
                 <div class="letter-box start-1">S</div>

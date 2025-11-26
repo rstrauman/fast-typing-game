@@ -1,45 +1,27 @@
-# Fast Typing Game
+# Type Rush
 
-OBJECT ORIENTED JAVASCRIPT FINAL PROJECT
+**Type Rush** is a fast paced typing game to test your speed, accuracy and focus. 
 
----
+## 🎮 Demo
 
-## Description
-A simple game made with HTML, CSS, and JavaScript that requires the player to type out displayed words before the timer runs out.
+**Live Demo**
+[Play Type Rush]()
 
----
+## ✨ Features
+- **Background Audio** that starts when the game begins
+- **Sound Effects** for correct and incorrect words
+- Random word/sentence generator
+- **Timer** and **live scor**e tracking
+- Accuracy and mistakes counting
+- Clean and responsive 
 
-## Features
-The game contains:
+## 🕹️ How to Play
+1. Click **Start** to begin the game.
+2. One word will appear on the screen.
+3. Type the word exactly as shown.
+4. When you finish typing the word, a new word will appear automatically.
+5. The game ends only when:
+- **You win** — you typed all required words correctly.
+- **You lose** — the timer runs out or you make too many mistakes.
 
-- A timer to record the time limit.
-- Sound effects that play when the user inputs a wrong letter, a correct letter, or completes a word correctly.
-- A reset button for when the player loses the game by not typing the words within the required timeline.
-- Background music that plays when the user presses the start button.
-
----
-
-## How To Play
-1. Click the **Start** button to begin the timer.
-2. Type the words you see as quickly as possible before the timer runs out.
-3. If the timer runs out before all words are typed, the game is over.
-
----
-
-## Tech Stack
-- HTML  
-- CSS  
-- JavaScript  
-- Audio effects  
-- DOM manipulation  
-- Classes  
-
----
-
-## Future Improvements
-- Adding a score counter for recording points.
-
----
-
-## Author
-**Emmanuel Olannye**
+There is **no Pause** and **no Reset** button. The game runs until you win or lose.
