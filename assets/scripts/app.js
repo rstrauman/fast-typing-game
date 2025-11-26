@@ -9,14 +9,19 @@ let randomWordArray = [];
 let nextWordCount = "";
 let letterIndex = 0;
 let incorrectLetterCount = 0;
+let hit = 0; 
+let allowOceanLoop = true;
 
 let nextWord;
 let letterBoxes = [];
+
+const oceanAudio = document.getElementById('ocean-sound');
 
 let gameContainer = document.querySelector('.game-container');
 let wordContainer = document.querySelector('.current-word-container');
 let startBtn = document.querySelector('.start-btn');
 let userInput = document.querySelector('.user-input');
+let hitCount = document.getElementById('hit-count');
 
 let count = 100;
 let timerCount;
@@ -37,8 +42,15 @@ function sortWords(shuffleWords) {
 }
 
 function gameStart(){
-    backgroundMusic.currentTime = 0; 
+    allowOceanLoop = false; 
+    oceanAudio.pause();
+    oceanAudio.currentTime = 0;
+    backgroundMusic.currentTime = 0;
     backgroundMusic.play();
+
+    randomWordArray = [];
+    hit = 0; 
+    hitCount.innerHTML = hit;
 
     words = ['dinosaur', 'love', 'pineapple', 'calendar', 'robot', 'building', 'population', 'weather', 'bottle', 'history', 'dream', 'character', 'money', 'absolute', 'discipline', 'machine', 'accurate', 'connection', 'rainbow', 'bicycle', 'eclipse', 'calculator', 'trouble', 'watermelon', 'developer', 'philosophy', 'database', 'periodic', 'capitalism', 'abominable', 'component', 'future', 'pasta', 'microwave', 'jungle', 'wallet', 'canada', 'coffee', 'beauty', 'agency', 'chocolate', 'eleven', 'technology', 'alphabet', 'knowledge', 'magician', 'professor', 'triangle', 'earthquake', 'baseball', 'beyond', 'evolution', 'banana', 'perfumer', 'computer', 'management', 'discovery', 'ambition', 'music', 'eagle', 'crown', 'chess', 'laptop', 'bedroom', 'delivery', 'enemy', 'button', 'superman', 'library', 'unboxing', 'bookstore', 'language', 'homework', 'fantastic', 'economy', 'interview', 'awesome', 'challenge', 'science', 'mystery', 'famous', 'league', 'memory', 'leather', 'planet', 'software', 'update', 'yellow', 'keyboard', 'window'];
 
@@ -104,7 +116,6 @@ function resetGame(){
 function createNextWord(){
     userInput.value = "";
     wordContainer.innerHTML = "";
-    randomWordArray.shift();
 
     nextWordCount = randomWordArray[0];
     nextWord.innerHTML = randomWordArray[0].toUpperCase();
@@ -137,6 +148,17 @@ function typedLetter(inputLetter){
             }
             // Word is correct
             if(letterIndex === nextWordCount.length){
+                hit++;
+                hitCount.innerHTML = hit;
+                randomWordArray.shift();
+                if(randomWordArray.length === 0) {
+                    allowOceanLoop = true; 
+                    backgroundMusic.pause();
+                    backgroundMusic.currentTime = 0;
+                    oceanAudio.currentTime = 0;
+                    play7SecLoop();
+                    setTimeout(() => alert("You Win!"), 100);
+                }
                 setTimeout(createNextWord, 100);
         }
         // Letter is incorrect
@@ -189,6 +211,7 @@ function backSpace(){
 startBtn.addEventListener('click', gameStart);
 
 userInput.addEventListener('keydown', (event) => {
+        if (count === 0 ) return;
         const letter = event.key;
         if(letter === 'Backspace') {
             backSpace();
@@ -202,9 +225,14 @@ function countDown() {
         count--;
         countDisplay.innerHTML = count;
         console.log(count);
-        if (count == 0) {
+        if (count === 0) {
             alert("Game Over!")
             clearInterval(timerCount);
+            allowOceanLoop = true; 
+            backgroundMusic.pause();
+            backgroundMusic.currentTime = 0;
+            oceanAudio.currentTime = 0;
+            play7SecLoop();
         }
     }, 1000);
 
@@ -214,3 +242,23 @@ function countDown() {
 document.addEventListener('click', () => {
     userInput.focus();
 });
+
+function play7SecLoop() {
+    if(!allowOceanLoop) return;
+    oceanAudio.currentTime = 0;
+    oceanAudio.play().catch(() => {
+        console.log("Autoplay blocked, waiting for user interaction");
+    });
+    setTimeout(() => {
+        if(!allowOceanLoop) {
+            oceanAudio.pause();
+            return;
+        }
+        play7SecLoop();
+    }, 7000);
+}
+
+window.addEventListener('load', () => {
+    play7SecLoop();
+});
+
