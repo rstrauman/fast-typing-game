@@ -5,7 +5,7 @@
 ## 🎮 Demo
 
 **Live Demo**  
-[Play Type Rush]()
+[Play Type Rush](https://rstrauman.github.io/fast-typing-game/)
 
 ## ✨ Features
 - **Background Audio** that starts when the game begins  
