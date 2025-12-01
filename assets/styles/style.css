@@ -214,6 +214,92 @@ h1 {
     display: none;
 }
 
+
+/* ===== Sidebar Styling ===== */
+.sidebar {
+    position: fixed;
+    right: 0px; /* Hidden by default */
+    width: 300px;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+    color: #fff;
+    padding: 20px;
+    box-shadow:  rgba(0 ,0 ,0 ,0);
+    transition: right 0.3s ease-in-out;
+    z-index: 1000;
+    overflow-y: auto;
+    justify-content: center;
+}
+
+.sidebar.active {
+    right: 0; /* Slide in when active */
+}
+
+.sidebar aside {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.sidebar h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+    padding-bottom: 5px;
+}
+
+.scoreboard_values p {
+    background-color: rgba(255,255,255,0.1);
+    text-align: center;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: background-color 0.2s;
+}
+
+.scoreboard_values p:hover {
+    background-color: rgba(255,255,255,0.2);
+}
+
+/* ===== Scoreboard Button Styling ===== */
+#scoreboard_button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #4dd0e1;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 19px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transition: all 0.2s ease-in-out;
+    z-index: 1100;
+}
+
+#scoreboard_button:hover {
+    background-color: #00897b;
+    transform: scale(1.05);
+}
+
+/* Optional: Scrollbar styling for sidebar */
+.sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background-color: rgba(255,255,255,0.3);
+    border-radius: 3px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+
+
 @keyframes incorrect {
     0%, 100% { translate: 0 0; }
     33% { translate: 40px 0}
