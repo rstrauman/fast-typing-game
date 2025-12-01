@@ -140,9 +140,9 @@ h1 {
     transition: all 0.3s ease;
 }
 
-.start-btn:hover {
+.start-btn:hover, .scoreboard_values p:hover {
     background: linear-gradient(135deg, #00bfa5, #00897b);
-    transform: scale(1.15);
+    transform: scale(1.1);
     cursor: pointer;
 }
 
@@ -213,70 +213,53 @@ h1 {
 .hidden {
     display: none;
 }
-
-/* ===== Sidebar & Scoreboard (replace any previous sidebar rules) ===== */
+/* ===== Sidebar (exact same visual treatment as .game-container) ===== */
 .sidebar {
   position: fixed;
   top: 0;
   right: 0;
   width: 300px;
   height: 100%;
-  background-color: rgba(0,0,0,0.7); /* only black transparent */
+  background: rgba(255,255,255,0);   /* same transparent base as .game-container */
+  backdrop-filter: blur(10px);       /* same blur as .game-container */
+  -webkit-backdrop-filter: blur(10px);
   color: #fff;
   display: flex;
-  justify-content: center; /* center scoreboard vertically */
-  align-items: center;     /* center scoreboard horizontally */
-  z-index: 1000;
-  padding: 0;              /* ensure no extra inner offset */
+  justify-content: center;
+  align-items: center;
+  padding-top: 40px;
   box-sizing: border-box;
+  z-index: 1000;
 }
 
-/* container that holds the <p> elements */
+/* ===== Scoreboard container (centered & even spacing) ===== */
 .scoreboard_values {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly; /* equal space above/between/below items */
-  align-items: center;
-  height: 55%;         /* controls vertical block occupied by scoreboard */
-  min-height: 220px;   /* prevents items from squashing on very small screens */
-  width: 250px;          /* keeps <p> inset from the sidebar edges */
+  justify-content: space-evenly;
+  height: 55%;
+  min-height: 220px;
+  width: 250px;
+  gap: 12px;
+  margin: 0;
   padding: 0;
-  gap: 12px;           /* fallback spacing for browsers */
+  box-sizing: border-box;
 }
 
-/* each score row */
+/* ===== Score items: use the same translucent family as your game visuals ===== */
 .scoreboard_values p {
   width: 100%;
-  margin: 0;                         /* remove any per-<p> margin that caused the problem */
-  padding: 10px 12px;
-  background-color: rgba(255,255,255,0.1); /* subtle transparent white */
-  border-radius: 8px;
+  margin: 0;
+  padding: 12px 14px;
+  background: linear-gradient(135deg, #4dd0e1, #0ecbb2);
+  border-radius: 10px;
+  line-height: 1.5;
   box-sizing: border-box;
-  line-height: 1.6;
 }
 
-/* hover effect (keeps same colours you used) */
+/* hover: small change but within same palette */
 .scoreboard_values p:hover {
-  background-color: rgba(255,255,255,0.2);
-}
-
-/* scoreboard button — keep as-is but replace conflicting rules */
-#scoreboard_button {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background-color: #4dd0e1; 
-  color: #fff;
-  padding: 12px 20px;
-  border-radius: 8px;
-  font-size: 19px;
-  z-index: 1100;
-  transition: transform 0.18s ease-in-out, background-color 0.18s;
-}
-
-#scoreboard_button:hover {
-  background-color: #00897b;
-  transform: scale(1.03);
+  background-color: rgba(3, 88, 97, 0.65);
 }
 
 
