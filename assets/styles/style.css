@@ -34,7 +34,7 @@ body {
 
 .game-container {
     background: rgba(255, 255, 255, 0);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px); /* only standard blur */
     padding: 50px 70px;
     border-radius: 20px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.15);
@@ -71,11 +71,10 @@ h1 {
 }
 
 .hit-counter {
-    font-size: 2rem;
+    font-size: 36px;
     font-weight: 700;
     text-align: center;
     color: #09e1de;
-    font-size: 36px;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
@@ -140,9 +139,9 @@ h1 {
     transition: all 0.3s ease;
 }
 
-.start-btn:hover {
+.start-btn:hover, .scoreboard_values p:hover {
     background: linear-gradient(135deg, #00bfa5, #00897b);
-    transform: scale(1.15);
+    transform: scale(1.1);
     cursor: pointer;
 }
 
@@ -151,11 +150,10 @@ h1 {
 /************************************/
 
 .next-word {
-    font-size: 24px;
+    font-size: 36px;
     font-weight: 600;
     padding: 10px;
     color: #fff;
-    font-size: 36px;
 }
 
 .restart-btn {
@@ -214,6 +212,74 @@ h1 {
     display: none;
 }
 
+/************************************/
+/*          Scoreboard              */
+/************************************/
+
+.scoreboard {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    box-sizing: border-box;
+    padding: 0 18px;         
+}
+
+.scoreboard_title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #4dd0e1;           
+    margin: 0;
+    letter-spacing: 0.6px;
+    text-align: center;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 100%;
+    background: rgba(255,255,255,0);   /* transparent for blur */
+    backdrop-filter: blur(10px);       /* standard blur */
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 40px;
+    box-sizing: border-box;
+    z-index: 1000;
+}
+
+/* ===== Scoreboard Values ===== */
+.scoreboard_values {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 55%;
+    min-height: 220px;
+    width: 250px;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.scoreboard_values p {
+    width: 100%;
+    margin: 0;
+    padding: 12px 14px;
+    background: linear-gradient(135deg, #4dd0e1, #0ecbb2);
+    border-radius: 10px;
+    line-height: 1.5;
+    box-sizing: border-box;
+}
+
+.scoreboard_values p:hover {
+    background-color: rgba(3, 88, 97, 0.65);
+}
+
 @keyframes incorrect {
     0%, 100% { translate: 0 0; }
     33% { translate: 40px 0}
@@ -227,7 +293,7 @@ h1 {
     .letter-box {
         height: 70px;
         font-size: 2rem;
-        min-width: 50px; /* slightly bigger to prevent shrink */
+        min-width: 50px;
         max-width: 70px;
         line-height: 70px;
     }
