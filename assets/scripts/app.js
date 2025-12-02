@@ -12,8 +12,20 @@ let incorrectLetterCount = 0;
 let hit = 0; 
 let allowOceanLoop = true;
 
+let total = 0;
+let correctCountTotal = 0
+let incorrectCountTotal = 0;
+
 let nextWord;
 let letterBoxes = [];
+
+let score = {
+    hits: 0,
+    percentage: 0
+}
+
+let leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
+//localStorage.setItem("leaderboard", JSON.stringify(leaderboard))
 
 const oceanAudio = document.getElementById('ocean-sound');
 
@@ -23,7 +35,7 @@ let startBtn = document.querySelector('.start-btn');
 let userInput = document.querySelector('.user-input');
 let hitCount = document.getElementById('hit-count');
 
-let count = 100;
+let count = 15;
 let timerCount;
 let countDisplay = document.querySelector('.countdown')
 
@@ -42,6 +54,15 @@ function sortWords(shuffleWords) {
 }
 
 function gameStart(){
+    score = {
+        hits: 0,
+        percentage: 0
+    }
+
+    total = 0; 
+    correctCountTotal = 0
+    incorrectCountTotal = 0;
+
     allowOceanLoop = false; 
     oceanAudio.pause();
     oceanAudio.currentTime = 0;
@@ -58,7 +79,7 @@ function gameStart(){
     wordContainer.innerHTML = "";
     startBtn.remove();
 
-    count = 100;
+    count = 15;
     countDown();
 
     document.querySelector('.countdown-container').classList.remove("hidden");
@@ -145,6 +166,7 @@ function typedLetter(inputLetter){
             letterBoxes[letterIndex].classList.remove('incorrect');
             letterBoxes[letterIndex].classList.add('correct');
             letterIndex++;
+            correctCountTotal++;
             }
             // Word is correct
             if(letterIndex === nextWordCount.length){
@@ -185,6 +207,7 @@ function typedLetter(inputLetter){
                 letterBoxes[letterIndex].classList.add('anim');
                 letterErrorSound.play();
                 incorrectLetterCount++;
+                incorrectCountTotal++;
                 setTimeout(() => {
                     letterBoxes[letterIndex].classList.remove('anim');
                 }, 500)
@@ -226,7 +249,17 @@ function countDown() {
         countDisplay.innerHTML = count;
         console.log(count);
         if (count === 0) {
-            alert("Game Over!")
+            total = incorrectCountTotal + correctCountTotal;
+            score = {
+                hits: hit,
+                percentage: ((correctCountTotal / total) * 100)
+            }
+            leaderboard.unshift(score);
+            console.log(leaderboard)
+            
+            localStorage.setItem("leaderboard", JSON.stringify(leaderboard));
+
+            alert("Game Over!");
             clearInterval(timerCount);
             allowOceanLoop = true; 
             backgroundMusic.pause();
