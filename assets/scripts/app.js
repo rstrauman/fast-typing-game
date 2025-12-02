@@ -25,7 +25,6 @@ let score = {
 }
 
 let leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
-//localStorage.setItem("leaderboard", JSON.stringify(leaderboard))
 
 const oceanAudio = document.getElementById('ocean-sound');
 
@@ -38,6 +37,9 @@ let hitCount = document.getElementById('hit-count');
 let count = 15;
 let timerCount;
 let countDisplay = document.querySelector('.countdown')
+
+let scoreboard = document.querySelector('.scoreboard_values');
+let scores = document.querySelectorAll('.scoreboard_values p');
 
 function sortWords(shuffleWords) {
     let currentIndex = shuffleWords.length, temporaryValue, randomIndex;
@@ -247,17 +249,8 @@ function countDown() {
     timerCount = setInterval(() => {
         count--;
         countDisplay.innerHTML = count;
-        console.log(count);
         if (count === 0) {
-            total = incorrectCountTotal + correctCountTotal;
-            score = {
-                hits: hit,
-                percentage: ((correctCountTotal / total) * 100)
-            }
-            leaderboard.unshift(score);
-            console.log(leaderboard)
-            
-            localStorage.setItem("leaderboard", JSON.stringify(leaderboard));
+            updateLeaderboard();
 
             alert("Game Over!");
             clearInterval(timerCount);
@@ -268,7 +261,38 @@ function countDown() {
             play7SecLoop();
         }
     }, 1000);
+}
 
+function updateLeaderboard() {
+    total = incorrectCountTotal + correctCountTotal;
+    score = {
+        hits: hit,
+        percentage: total === 0 ? 0 : ((correctCountTotal / total) * 100)
+    }
+    leaderboard.unshift(score);
+    leaderboard.sort((a, b) => {
+        if(a.hits === b.hits) return b.percentage - a.percentage;
+        return b.hits - a.hits
+    });
+
+    leaderboard.splice(9);
+    localStorage.setItem("leaderboard", JSON.stringify(leaderboard));
+
+    scores.forEach((slot, index) => {
+        if(leaderboard[index]){
+            slot.textContent = `#${[index + 1]} Hits: ${leaderboard[index].hits} Percentage: ${leaderboard[index].percentage.toFixed(2)}%`;
+        }
+    });
+}
+
+function showLeaderboard() {
+    leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
+
+    scores.forEach((slot, index) => {
+        if(leaderboard[index]){
+            slot.textContent = `#${[index + 1]} Hits: ${leaderboard[index].hits} Percentage: ${leaderboard[index].percentage.toFixed(2)}%`;
+        }
+    });    
 }
 
 // Removes ability to click off screen and be unable to type
@@ -292,6 +316,7 @@ function play7SecLoop() {
 }
 
 window.addEventListener('load', () => {
+    showLeaderboard();
     play7SecLoop();
 });
 
